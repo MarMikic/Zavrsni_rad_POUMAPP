@@ -1,0 +1,38 @@
+<a class="button expanded success" href="<?=APP::config('url') ?>klasa/novo">
+    <?php include BP . 'view/predlozak/izgledDodajNovi.phtml' ?>
+</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Program</th>
+            <th>Profesor</th>
+            <th>Datum početka</th>
+            <th>Broj ucenika</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($entiteti as $entitet): ?>
+            <tr>
+                <td><?=$entitet->naziv?></td>
+                <td><?=$entitet->program?></td>
+                <td><?=$entitet->profesor?></td>
+                <td><?=$entitet->datumpocetka?></td>
+                <td><?=$entitet->ucenika?></td>
+                <td>
+                <a href="<?=APP::config('url') ?>klasa/promjena?sifra=<?=$entitet->sifra?>">
+                    <?php include BP . 'view/predlozak/izgledPromjeni.phtml' ?>
+                </a>
+                <?php if ($entitet->ucenika==0): ?>
+                    <a onclick="return confirm('Sigurno obrisati?');"
+                    href="<?=APP::config('url') ?>klasa/brisanje?sifra=<?=$entitet->sifra?>">
+                        <?php include BP . 'view/predlozak/izgledObrisi.phtml' ?>
+                    </a>
+                <?php endif; ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

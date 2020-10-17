@@ -1,0 +1,57 @@
+<form
+    action="<?=APP::config('url') ?>program/novo" 
+    method="POST">
+
+    <label>Naziv
+        <input type="text" name="naziv" 
+        value="<?=$program->naziv?>" />
+    </label>
+
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 small-12 cell">
+            <label>Opis
+                <textarea name="opis" cols="30" 
+                rows="5"><?=$program->opis?></textarea>
+            </label>
+        </div>
+        <div class="large-6 small-12 cell">
+            <label>Cijena
+                <input type="number" name="cijena" 
+                value="<?=$program->opis?>"/>
+            </label>
+            <label>Verificiran
+                <select name="verificiran">
+                <option value="-1">Odaberite</option>
+                    <option <?php 
+                    if($program->verificiran==='1'){
+                        echo ' selected="selected" ';
+                    }
+                    ?> value="1">Da</option>
+                    <option <?php 
+                    if($program->verificiran==='0'){
+                        echo ' selected="selected" ';
+                    }
+                    ?> value="0">Ne</option>
+                </select>
+            </label>
+        </div>
+    </div>
+
+    <p>
+        <?=$poruka ?>
+    </p>
+
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 small-12 cell">
+        <a class="button expanded alert" 
+        href="<?=APP::config('url') ?>program/index">
+            Odustani
+        </a>    
+        </div>
+        <div class="large-6 small-12 cell">
+            <input type="submit" class="button expanded" 
+                value="Unesi novi program"></input>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,42 @@
+<?php 
+// najlošije rješenje dovlačenja podataka iz baze je da ovdje se spojimo
+// i dovučemo podatke
+
+?>
+
+<a class="button expanded success" href="<?=APP::config('url') ?>program/novo">
+    <?php include BP . 'view/predlozak/izgledDodajNovi.phtml' ?>
+</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Cijena</th>
+            <th>Verificiran</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($programi as $program): ?>
+            <tr>
+                <td class="naziv" id="n_<?=$program->sifra?>"><?=$program->naziv?></td>
+                <td><?=$program->opis?></td>
+                <td><?=$program->cijena?></td>
+                <td><?=$program->verificiran?></td>
+                <td>
+                <a href="<?=APP::config('url') ?>program/promjena?sifra=<?=$program->sifra?>">
+                    <?php include BP . 'view/predlozak/izgledPromjeni.phtml' ?>
+                </a>
+                <?php if ($program->klasa==0): ?>
+                    <a onclick="return confirm('Sigurno obrisati?');"
+                    href="<?=APP::config('url') ?>program/brisanje?sifra=<?=$program->sifra?>">
+                        <?php include BP . 'view/predlozak/izgledObrisi.phtml' ?>
+                    </a>
+                <?php endif; ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

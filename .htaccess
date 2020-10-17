@@ -1,0 +1,13 @@
+# Čitati https://www.smashingmagazine.com/2011/11/introduction-to-url-rewriting/
+
+# omogučiti URL rewrite
+RewriteEngine On
+
+# preskoči ukoliko datoteka postoji
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# preskoči ukoliko direktorij postoji
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# single entry point
+RewriteRule (.*) index.php [L,E=PATH_INFO:/$1]

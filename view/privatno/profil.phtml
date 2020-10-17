@@ -1,0 +1,34 @@
+<?=$entitet->ime?> <?=$entitet->prezime?> 
+<hr />
+<form
+    action="<?=APP::config('url') ?>nadzornaploca/profilpromjena" 
+    method="POST">
+
+    <label>Lozinka
+        <input type="password" name="lozinka"  />
+    </label>
+
+    <label>Lozinka ponovo
+        <input type="password" name="lozinkaponovo"  />
+    </label>
+
+  
+
+    <p>
+        <?=$poruka ?>
+    </p>
+
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 small-12 cell">
+        <a class="button expanded alert" 
+        href="<?=APP::config('url') ?>nadzornaploca/index">
+            Odustani
+        </a>    
+        </div>
+        <div class="large-6 small-12 cell">
+            <input type="submit" class="button expanded" 
+                value="Promjeni podatke"></input>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,56 @@
+<figure class="highcharts-figure">
+    <div id="graf1"></div>
+    <p class="highcharts-description">
+        Prikazani su nazivi klase s njihovim pripadajućim brojem učenika
+    </p>
+</figure>
+
+<figure class="highcharts-figure">
+    <div id="graf2"></div>
+    <p class="highcharts-description">
+   Omjer učenika koji imaju/nemaju definiran OIB
+     </p>
+</figure>
+
+
+<script>
+function graf2funkcija(){
+    Highcharts.chart('graf2', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Ima/nema OIB'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.y} ({point.percentage:.1f} %)'
+                }
+            }
+        },
+        series: [{
+            name: 'Učenici',
+            colorByPoint: true,
+            data: [
+                {name: 'Nije definiran OIB', y: <?php echo $oibGraf[0]->ukupno ?>}, 
+                {name: 'Definiran OIB', y: <?php echo $oibGraf[1]->ukupno ?>}
+        ]
+        }]
+    });
+}
+</script>

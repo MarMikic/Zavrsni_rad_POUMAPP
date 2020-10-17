@@ -1,0 +1,65 @@
+<div class="title-bar" data-responsive-toggle="example-menu" data-hide-for="medium">
+  <button class="menu-icon" type="button" data-toggle="example-menu"></button>
+  <div class="title-bar-title"><?=APP::config('nazivAPP') ?></div>
+</div>
+
+<div class="top-bar" id="example-menu">
+  <div class="top-bar-left">
+    <ul class="dropdown menu" data-dropdown-menu>
+      <li>
+        <a href="<?=APP::config('url') ?>">
+            <i class="fas fa-home fa-lg fa-spin" style="color:darkgreen"></i>
+        </a>
+    </li>
+
+      <li><a href="<?=APP::config('url') ?>index/onama">
+       <i class="fas fa-address-card fa-pulse" style="color:darkgreen"></i> O nama
+       </a>
+       </li>
+
+       <li><a href="<?=APP::config('url') ?>index/era">
+       <i class="fas fa-project-diagram fa-pulse" style="color:darkgreen"></i> ERA 
+       </a>
+       </li>
+
+      <?php if(isset($_SESSION['autoriziran'])): ?>
+        <li>
+        <a href="#">
+        <i class="fas fa-cogs fa-spin" style="color:darkgreen"></i>Programi
+        </a>
+        <ul class="menu vertical">
+          <li><a href="<?=APP::config('url') ?>nadzornaploca/index">Nadzorna ploča</a></li>
+          <li><a href="<?=APP::config('url') ?>program/index">Programi</a></li>
+          <li><a href="<?=APP::config('url') ?>ucenik/index">Učenici</a></li>
+          <li><a href="<?=APP::config('url') ?>profesor/index">Profesori</a></li>
+          <li><a href="<?=APP::config('url') ?>klasa/index">Klase</a></li>
+          <?php if($_SESSION['autoriziran']->uloga==='admin'): ?>
+            <li><a href="<?=APP::config('url') ?>operater/index">Operateri</a></li>
+          <?php else: ?>
+            <li><a href="<?=APP::config('url') ?>nadzornaploca/profil">Profil operatera</a></li>
+          <?php endif; ?>
+        </ul>
+      </li>
+        
+      <?php endif; ?>
+    </ul>
+  </div>
+  <div class="top-bar-right">
+    <ul class="menu">
+      <li>
+          <?php if(!isset($_SESSION['autoriziran'])): ?>
+            <a href="<?=APP::config('url') ?>index/login">
+              <i class="fas fa-sign-in-alt" style="color:green"></i>
+            </a>
+          <?php else: ?>
+            <a href="<?=APP::config('url') ?>index/logout">
+            <i class="fas fa-sign-out-alt fa-spin" style="color:red"></i>
+            <?=$_SESSION['autoriziran']->ime?>, 
+            <?=$_SESSION['autoriziran']->uloga?>
+            </a>
+          <?php endif; ?>
+        
+        </li>
+    </ul>
+  </div>
+</div>

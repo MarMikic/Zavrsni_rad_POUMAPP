@@ -1,0 +1,96 @@
+<form
+    action="<?=APP::config('url') ?>klasa/promjena" 
+    method="POST">
+
+ <fieldset class = "fieldset">
+    <legend>Osnovni podaci</legend>
+    <label>Naziv
+        <input type="text" name="naziv" 
+        value="<?=$entitet->naziv?>" />
+    </label>
+
+    <div class="grid-x grid-padding-x">
+        <div class="large-4 small-12 cell">
+            <label>Program
+              <select name="program" id="program">
+                <option <?php if($entitet->program==0){
+                    echo ' selected="selected" ';
+                }?> value="0">Odaberite program</option>
+                <?php foreach($programi as $program): ?>
+                    <option <?php if($entitet->program==$program->sifra){
+                    echo ' selected="selected" ';
+                }?> value="<?=$program->sifra?>"><?=$program->naziv?></option>
+                <?php endforeach; ?>
+              </select>
+            </label>
+        </div>
+        <div class="large-4 small-12 cell">
+            <label>Profesor
+            <select name="profesor" id="profesor">
+            <option <?php if($entitet->profesor==0){
+                    echo ' selected="selected" ';
+                }?> value="0">Odaberite profesora</option>
+                <?php foreach($profesori as $profesor): ?>
+                    <option <?php if($entitet->profesor==$profesor->sifra){
+                    echo ' selected="selected" ';
+                }?> value="<?=$profesor->sifra?>"><?=$profesor->ime?> <?=$profesor->prezime?></option>
+                <?php endforeach; ?>
+            </select>
+            </label>
+            
+        </div>
+        <div class="large-4 small-12 cell">
+            <label>Datum početka
+            <input type="datetime-local" name="datumpocetka" id="datumpocetka"
+            value="<?=$entitet->datumpocetka?>">
+            </label>
+            
+        </div>
+    </div>
+
+
+
+    <p>
+        <?=$poruka ?>
+    </p>
+
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 small-12 cell">
+        <a class="button expanded alert" 
+        href="<?=APP::config('url') ?>klasa/index">
+            Odustani
+        </a>    
+        </div>
+        <div class="large-6 small-12 cell">
+            <input type="submit" class="button expanded" 
+                value="Promjeni klasu"></input>
+        </div>
+    </div>
+    </fieldset>
+
+    </form>
+
+<label for="uvjet">Traži učenika</label>
+<input type="text" id="uvjet" />
+    <table>
+        <thead>
+            <tr>
+                <th>Ucenik</th>
+                <th>Akcija</th>
+            </tr>
+        </thead>
+        <tbody id="ucenici">
+            <?php foreach($entitet->ucenici as $ucenik): ?>
+                <tr>
+                    <td>
+                        <?=$ucenik->ime?> <?=$ucenik->prezime?>
+                    </td>
+                    <td>
+                     <a class="obrisi" href="#" id="p_<?=$ucenik->sifra?>">
+                    Obriši
+                     </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>

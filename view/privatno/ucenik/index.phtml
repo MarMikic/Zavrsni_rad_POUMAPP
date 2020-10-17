@@ -1,0 +1,74 @@
+<a class="button expanded success" 
+href="<?=APP::config('url') ?>ucenik/novo">
+    <?php include BP . 'view/predlozak/izgledDodajNovi.phtml' ?>
+</a>
+
+<form action="<?=APP::config('url') ?>ucenik/index" method="get">
+<input type="text" name="uvjet" value="<?=$uvjet?>"
+placeholder="Unesite dio imena, prezimena ili OIB-a" />
+</form>
+
+<nav aria-label="Pagination">
+  <ul class="pagination text-center">
+    <li class="pagination-previous"><a href="<?=APP::config('url') ?>ucenik/index?stranica=<?=$prethodna?>&uvjet=<?=$uvjet?>" aria-label="Previuos page">Prethodno</a></li>
+    <li class="current"><span class="show-for-sr">Vi ste na</span> <?=$trenutna?> / <?=$ukupnoStranica?></li>
+    <li class="pagination-next"><a href="<?=APP::config('url') ?>ucenik/index?stranica=<?=$sljedeca?>&uvjet=<?=$uvjet?>" aria-label="Next page">Sljedeće</a></li>
+  </ul>
+</nav>
+<div class="grid-x grid-margin-x">
+    <?php foreach($entiteti as $entitet): ?>
+        <div class="large-3 medium-6 small-12 cell" style="text-align: center">
+            <div class="callout" style="min-height: 600px;">
+                <h1 style="font-size: 1.5em"><?=$entitet->ime ?> <?=$entitet->prezime ?></h1>
+                <hr />
+               <?php if(file_exists(BP . 'public'  . DIRECTORY_SEPARATOR
+            . 'img' . DIRECTORY_SEPARATOR . 'ucenik' 
+            . DIRECTORY_SEPARATOR . $entitet->sifra . '.png')): ?>
+                  <img class="slika" id="p_<?=$entitet->sifra?>" src="<?=APP::config('url') ?>public/img/ucenik/<?=$entitet->sifra ?>.png" 
+                alt="<?=$entitet->ime ?> <?=$entitet->prezime ?>">
+                <?php else: ?>
+                <img class="slika" id="p_<?=$entitet->sifra?>" src="<?=APP::config('url') ?>public/img/nepoznataosoba.png" 
+                alt="<?=$entitet->ime ?> <?=$entitet->prezime ?>">
+                <?php endif;?>
+                <hr />
+                <?php if($entitet->brojugovora!=null): ?>
+                    Broj ugovora: <?=$entitet->brojugovora ?><br />
+                <?php endif; ?>
+
+                <?php if($entitet->oib!=null): ?>
+                    OIB: <?=$entitet->oib ?><br />
+                <?php endif; ?>
+                 <?=$entitet->email ?>
+                 <hr />
+                 <a href="<?=APP::config('url') ?>ucenik/promjena?sifra=<?=$entitet->sifra?>&stranica=<?=$trenutna?>">
+                    <?php include BP . 'view/predlozak/izgledPromjeni.phtml' ?>
+                </a>
+                <?php if ($entitet->klasa==0): ?>
+                    <a onclick="return confirm('Sigurno obrisati?');"
+                    href="<?=APP::config('url') ?>ucenik/brisanje?sifra=<?=$entitet->sifra?>">
+                        <?php include BP . 'view/predlozak/izgledObrisi.phtml' ?>
+                    </a>
+                <?php else: ?>
+                    <i title="Ne može se obrisati jer vodi jednu ili više klasa" class="far fa-trash-alt" style="color: gray;"></i>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+<nav aria-label="Pagination">
+  <ul class="pagination text-center">
+    <li class="pagination-previous"><a href="<?=APP::config('url') ?>ucenik/index?stranica=<?=$prethodna?>&uvjet=<?=$uvjet?>" aria-label="Previuos page">Prethodno</a></li>
+    <li class="current"><span class="show-for-sr">Vi ste na</span> <?=$trenutna?> / <?=$ukupnoStranica?></li>
+    <li class="pagination-next"><a href="<?=APP::config('url') ?>ucenik/index?stranica=<?=$sljedeca?>&uvjet=<?=$uvjet?>" aria-label="Next page">Sljedeće</a></li>
+  </ul>
+</nav>
+
+
+<div class="reveal" id="slikaModal" data-reveal>
+  <img id="image" src="" alt="" />
+  <input type="file" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
+  <a href="#" id="spremi">Spremi</a>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
